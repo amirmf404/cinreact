@@ -1,0 +1,9 @@
+import { Button } from "primereact/button";
+
+export default function BasicDemo() {
+  return (
+    <div className="card flex justify-center">
+      <Button label="Check" icon="pi pi-check" />
+    </div>
+  );
+}
