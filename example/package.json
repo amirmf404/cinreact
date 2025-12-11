@@ -1,39 +1,19 @@
 {
-  "name": "cinreact",
-  "version": "0.0.1",
+  "name": "example",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
-  "description": "A small React component library built with Vite",
-  "keywords": [
-    "react",
-    "component",
-    "widget"
-  ],
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js",
-      "types": "./dist/types/index.d.ts"
-    }
-  },
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "dev": "vite build --watch",
+    "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "cinreact": "file:../",
     "cints-core": "^0.0.142",
-    "primeicons": "^7.0.0",
-    "primereact": "^10.9.7",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-router": "^7.10.1"
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

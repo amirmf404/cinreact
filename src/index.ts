@@ -1,0 +1,3 @@
+export { default as CinTable } from "./components/CinTable/CinTable";
+export type { IPropsCinTable } from "./components/CinTable/interfaces/CinTableProps";
+export { default as CinIndexPage } from "./pages/CinIndexPage";
