@@ -1,9 +1,11 @@
 import "./App.css";
-import { CinIdexPage } from "cinreact";
 function App() {
+  console.log("test s");
+
   return (
     <>
-      <CinIdexPage></CinIdexPage>
+      {" "}
+      <div className="text-red-600"> test tes </div>{" "}
     </>
   );
 }

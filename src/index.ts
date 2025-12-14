@@ -1,5 +1,6 @@
-export { default as CinTable } from "./components/CinTable/CinTable";
-export type { IPropsCinTable } from "./components/CinTable/interfaces/CinTableProps";
-export { default as CinIndexPage } from "./pages/CinIndexPage";
-export { default as CinReactPlugin } from "./plugins/CinReactPlugin";
-export type { CinReactPluginProps } from "./plugins/interfaces/CinReactPluginProps";
+export * from "./components";
+export * from "./i18n";
+export * from "./pages";
+export * from "./providers";
+export * from "./router";
+export * from "./utils";

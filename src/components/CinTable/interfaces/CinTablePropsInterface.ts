@@ -5,7 +5,7 @@ import type {
   PaginationOptions,
 } from "cints-core";
 
-export interface IPropsCinTable<T extends Record<string, unknown>> {
+export interface CinTablePropsInterface<T extends Record<string, unknown>> {
   resizableColumns?: boolean;
   dataKey?: string;
   //   textOverflow?: TextOverflowEnum;

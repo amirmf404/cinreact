@@ -8,11 +8,11 @@ import {
   CinId,
   CinLabel,
   CinModel,
+  CinPassword,
+  CinPhoneNumber,
   CinSearchable,
   CinSortable,
-  CinTab,
   CinText,
-  CrudActionsEnum,
   type CrudDataRepository,
   type Pagination,
   type PaginationOptions,
@@ -23,122 +23,92 @@ const userBaseList: UserModel[] = [
     id: 1,
     firstName: "Bobbee",
     lastName: "Karpeev",
-    gender: Gender.Male,
     phoneNumber: "977-482-9366",
     password: "qwertyuiop",
-    birthDate: new Date("12/17/2023"),
-    owner: { id: 2, firstName: "Lionello", lastName: "Muzzini" },
-    cityName: { fa: "testFA", en: "testEN", ar: "testAR" },
-    createDate: new Date("12/24/2023"),
-    email: "test@gmail.com",
   },
   {
     id: 2,
     firstName: "Lionello",
     lastName: "Muzzini",
-    gender: Gender.Male,
     phoneNumber: "615-761-4937",
     password: "qwertyuiop",
-    birthDate: new Date("11/15/2023"),
   },
   {
     id: 3,
     firstName: "Sargent",
     lastName: "Snowling",
-    gender: Gender.Male,
     phoneNumber: "364-222-8367",
     password: "qwertyuiop",
-    birthDate: new Date("3/19/2023"),
   },
   {
     id: 4,
     firstName: "Anestassia",
     lastName: "Augustine",
-    gender: Gender.Male,
     phoneNumber: "227-588-6949",
     password: "qwertyuiop",
-    birthDate: new Date("5/5/2023"),
   },
   {
     id: 5,
     firstName: "Aksel",
     lastName: "Johnsson",
-    gender: Gender.Male,
     phoneNumber: "160-655-0018",
     password: "qwertyuiop",
-    birthDate: new Date("1/21/2024"),
   },
   {
     id: 6,
     firstName: "Des",
     lastName: "Slany",
-    gender: Gender.Male,
     phoneNumber: "359-949-2482",
     password: "qwertyuiop",
-    birthDate: new Date("2/28/2023"),
   },
   {
     id: 7,
     firstName: "Marsha",
     lastName: "Rappoport",
-    gender: Gender.Male,
     phoneNumber: "835-120-0628",
     password: "qwertyuiop",
-    birthDate: new Date("1/12/2024"),
   },
   {
     id: 8,
     firstName: "Dev",
     lastName: "Wyllcock",
-    gender: Gender.Female,
     phoneNumber: "937-741-9526",
     password: "qwertyuiop",
-    birthDate: new Date("10/1/2023"),
   },
   {
     id: 9,
     firstName: "Thaddus",
     lastName: "Krauss",
-    gender: Gender.Female,
     phoneNumber: "502-268-4501",
     password: "qwertyuiop",
-    birthDate: new Date("2/3/2024"),
   },
   {
     id: 10,
     firstName: "Veronique",
     lastName: "Hansman",
-    gender: Gender.Female,
     phoneNumber: "787-293-7650",
     password: "qwertyuiop",
-    birthDate: new Date("6/28/2023"),
   },
   {
     id: 11,
     firstName: "Clarita",
     lastName: "Gregon",
-    gender: Gender.Female,
     phoneNumber: "456-880-9658",
     password: "qwertyuiop",
-    birthDate: new Date("1/8/2024"),
   },
   {
     id: 12,
     firstName: "Lotty",
     lastName: "Riccardo",
-    gender: Gender.Female,
     phoneNumber: "497-687-3068",
     password: "qwertyuiop",
-    birthDate: new Date("5/6/2023"),
   },
   {
     id: 13,
     firstName: "Brion",
     lastName: "Esselin",
-    gender: Gender.Female,
     phoneNumber: "556-744-8431",
     password: "qwertyuiop",
-    birthDate: new Date("10/8/2023"),
   },
   {
     id: 14,
@@ -146,7 +116,6 @@ const userBaseList: UserModel[] = [
     lastName: "Quenby",
     phoneNumber: "267-449-5825",
     password: "qwertyuiop",
-    birthDate: new Date("11/7/2023"),
   },
   {
     id: 15,
@@ -154,7 +123,6 @@ const userBaseList: UserModel[] = [
     lastName: "Hegden",
     phoneNumber: "300-761-1702",
     password: "qwertyuiop",
-    birthDate: new Date("6/3/2023"),
   },
   {
     id: 16,
@@ -162,7 +130,6 @@ const userBaseList: UserModel[] = [
     lastName: "Gartrell",
     phoneNumber: "843-836-5560",
     password: "qwertyuiop",
-    birthDate: new Date("10/30/2023"),
   },
   {
     id: 17,
@@ -170,7 +137,6 @@ const userBaseList: UserModel[] = [
     lastName: "Tabord",
     phoneNumber: "481-994-8203",
     password: "qwertyuiop",
-    birthDate: new Date("6/6/2023"),
   },
   {
     id: 18,
@@ -178,7 +144,6 @@ const userBaseList: UserModel[] = [
     lastName: "Wilcocks",
     phoneNumber: "388-109-2471",
     password: "lM8=9Jb'=",
-    birthDate: new Date("1/26/2024"),
   },
   {
     id: 19,
@@ -186,7 +151,6 @@ const userBaseList: UserModel[] = [
     lastName: "De Carolis",
     phoneNumber: "764-358-6794",
     password: "qwertyuiop",
-    birthDate: new Date("4/11/2023"),
   },
   {
     id: 20,
@@ -194,7 +158,6 @@ const userBaseList: UserModel[] = [
     lastName: "McComish",
     phoneNumber: "907-694-9185",
     password: "qwertyuiop",
-    birthDate: new Date("1/12/2024"),
   },
   {
     id: 21,
@@ -202,7 +165,6 @@ const userBaseList: UserModel[] = [
     lastName: "Zuker",
     phoneNumber: "926-164-5042",
     password: "qwertyuiop",
-    birthDate: new Date("7/27/2023"),
   },
   {
     id: 22,
@@ -210,7 +172,6 @@ const userBaseList: UserModel[] = [
     lastName: "Colombier",
     phoneNumber: "504-198-1624",
     password: "qwertyuiop",
-    birthDate: new Date("8/5/2023"),
   },
   {
     id: 23,
@@ -218,7 +179,6 @@ const userBaseList: UserModel[] = [
     lastName: "Beckles",
     phoneNumber: "440-917-5200",
     password: "qwertyuiop",
-    birthDate: new Date("3/18/2023"),
   },
   {
     id: 24,
@@ -226,7 +186,6 @@ const userBaseList: UserModel[] = [
     lastName: "Eglin",
     phoneNumber: "823-475-6629",
     password: "qwertyuiop",
-    birthDate: new Date("6/26/2023"),
   },
   {
     id: 25,
@@ -234,7 +193,6 @@ const userBaseList: UserModel[] = [
     lastName: "Gouge",
     phoneNumber: "546-935-9232",
     password: "qwertyuiop",
-    birthDate: new Date("5/6/2023"),
   },
   {
     id: 26,
@@ -242,7 +200,6 @@ const userBaseList: UserModel[] = [
     lastName: "Reavey",
     phoneNumber: "266-482-0256",
     password: "qwertyuiop",
-    birthDate: new Date("7/26/2023"),
   },
   {
     id: 27,
@@ -250,7 +207,6 @@ const userBaseList: UserModel[] = [
     lastName: "Silbert",
     phoneNumber: "130-118-1725",
     password: "qwertyuiop",
-    birthDate: new Date("6/17/2023"),
   },
   {
     id: 28,
@@ -258,7 +214,6 @@ const userBaseList: UserModel[] = [
     lastName: "McKibbin",
     phoneNumber: "706-703-9315",
     password: "qwertyuiop",
-    birthDate: new Date("8/6/2023"),
   },
   {
     id: 29,
@@ -266,7 +221,6 @@ const userBaseList: UserModel[] = [
     lastName: "Ropkins",
     phoneNumber: "283-484-4788",
     password: "qwertyuiop",
-    birthDate: new Date("4/2/2023"),
   },
   {
     id: 30,
@@ -274,7 +228,6 @@ const userBaseList: UserModel[] = [
     lastName: "Harty",
     phoneNumber: "492-923-7410",
     password: "qwertyuiop",
-    birthDate: new Date("9/1/2023"),
   },
   {
     id: 31,
@@ -282,7 +235,6 @@ const userBaseList: UserModel[] = [
     lastName: "Guthrie",
     phoneNumber: "471-188-6735",
     password: "qwertyuiop",
-    birthDate: new Date("12/17/2023"),
   },
   {
     id: 32,
@@ -290,7 +242,6 @@ const userBaseList: UserModel[] = [
     lastName: "Etches",
     phoneNumber: "446-149-0074",
     password: "eA0?4bnfG'<i",
-    birthDate: new Date("8/26/2023"),
   },
   {
     id: 33,
@@ -298,7 +249,6 @@ const userBaseList: UserModel[] = [
     lastName: "Dimanche",
     phoneNumber: "725-792-5560",
     password: "qwertyuiop",
-    birthDate: new Date("8/4/2023"),
   },
   {
     id: 34,
@@ -306,7 +256,6 @@ const userBaseList: UserModel[] = [
     lastName: "Carvilla",
     phoneNumber: "806-185-8857",
     password: "qwertyuiop",
-    birthDate: new Date("10/28/2023"),
   },
   {
     id: 35,
@@ -314,7 +263,6 @@ const userBaseList: UserModel[] = [
     lastName: "Franz-Schoninger",
     phoneNumber: "403-788-6780",
     password: "sZ7'SWrI*3",
-    birthDate: new Date("5/27/2023"),
   },
   {
     id: 36,
@@ -322,7 +270,6 @@ const userBaseList: UserModel[] = [
     lastName: "Cleugh",
     phoneNumber: "617-945-6780",
     password: "qwertyuiop",
-    birthDate: new Date("8/19/2023"),
   },
   {
     id: 37,
@@ -330,7 +277,6 @@ const userBaseList: UserModel[] = [
     lastName: "Libby",
     phoneNumber: "802-435-6277",
     password: "qwertyuiop",
-    birthDate: new Date("5/30/2023"),
   },
   {
     id: 38,
@@ -338,7 +284,6 @@ const userBaseList: UserModel[] = [
     lastName: "Worswick",
     phoneNumber: "720-585-0389",
     password: "qwertyuiop",
-    birthDate: new Date("3/7/2023"),
   },
   {
     id: 39,
@@ -346,7 +291,6 @@ const userBaseList: UserModel[] = [
     lastName: "Terrell",
     phoneNumber: "332-680-1040",
     password: "qwertyuiop",
-    birthDate: new Date("12/9/2023"),
   },
   {
     id: 40,
@@ -354,7 +298,6 @@ const userBaseList: UserModel[] = [
     lastName: "Heggs",
     phoneNumber: "423-161-8981",
     password: "qwertyuiop",
-    birthDate: new Date("4/30/2023"),
   },
   {
     id: 41,
@@ -362,7 +305,6 @@ const userBaseList: UserModel[] = [
     lastName: "Zorzi",
     phoneNumber: "868-477-3022",
     password: "qwertyuiop",
-    birthDate: new Date("2/7/2024"),
   },
   {
     id: 42,
@@ -370,7 +312,6 @@ const userBaseList: UserModel[] = [
     lastName: "Brugger",
     phoneNumber: "894-631-2884",
     password: "qwertyuiop",
-    birthDate: new Date("5/29/2023"),
   },
   {
     id: 43,
@@ -378,7 +319,6 @@ const userBaseList: UserModel[] = [
     lastName: "Bodycombe",
     phoneNumber: "240-463-7278",
     password: "qwertyuiop",
-    birthDate: new Date("12/18/2023"),
   },
   {
     id: 44,
@@ -386,7 +326,6 @@ const userBaseList: UserModel[] = [
     lastName: "Duddle",
     phoneNumber: "892-984-7770",
     password: "qwertyuiop",
-    birthDate: new Date("10/21/2023"),
   },
   {
     id: 45,
@@ -394,7 +333,6 @@ const userBaseList: UserModel[] = [
     lastName: "Cruttenden",
     phoneNumber: "105-747-4003",
     password: "qwertyuiop",
-    birthDate: new Date("3/24/2023"),
   },
   {
     id: 46,
@@ -402,7 +340,6 @@ const userBaseList: UserModel[] = [
     lastName: "Brookesbie",
     phoneNumber: "229-207-1164",
     password: "qwertyuiop",
-    birthDate: new Date("7/27/2023"),
   },
   {
     id: 47,
@@ -410,7 +347,6 @@ const userBaseList: UserModel[] = [
     lastName: "Duddy",
     phoneNumber: "983-859-0954",
     password: "qwertyuiop",
-    birthDate: new Date("11/11/2023"),
   },
   {
     id: 48,
@@ -418,7 +354,6 @@ const userBaseList: UserModel[] = [
     lastName: "Ellis",
     phoneNumber: "850-534-0090",
     password: "qwertyuiop",
-    birthDate: new Date("4/13/2023"),
   },
   {
     id: 49,
@@ -426,7 +361,6 @@ const userBaseList: UserModel[] = [
     lastName: "Standring",
     phoneNumber: "884-790-5298",
     password: "qwertyuiop",
-    birthDate: new Date("1/10/2024"),
   },
   {
     id: 50,
@@ -434,7 +368,6 @@ const userBaseList: UserModel[] = [
     lastName: "Elsley",
     phoneNumber: "943-739-1482",
     password: "qwertyuiop",
-    birthDate: new Date("4/4/2023"),
   },
 ];
 
@@ -489,6 +422,7 @@ export class UserModelCrudDataRepository implements CrudDataRepository {
 @CinCrudModel({
   name: "user",
   path: "user",
+  viewPageOptions: { enable: true },
   dataRepository: new UserModelCrudDataRepository(),
 })
 @CinExpose()
@@ -512,6 +446,11 @@ export class UserModel extends CinModel {
   @CinSearchable()
   firstName!: string;
 
+  @CinPhoneNumber()
+  phoneNumber: string;
+
+  @CinPassword()
+  password: string;
   // @CinTab({ label: "tab 1", priority: 1 })
   // @CinExclude([
   //   CrudActionsEnum.Index,
