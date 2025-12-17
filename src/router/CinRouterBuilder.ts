@@ -1,80 +1,119 @@
-import type { RouteObject } from "react-router-dom";
-import { getCinMetaData } from "cints-core";
-import { createElement } from "react";
+import { CinModel, getCinMetaData, isFunction } from "cints-core";
+import { CinRouterGroup, RouterBuilderItem } from "./CinRouterTypes";
+import { isCinModel } from "../utils";
 import _ from "lodash";
-
-import {
-  isCinRouterGroup,
-  isRouteObject,
-  isCinModelLike,
-  resolveModel,
-} from "./utils";
 import { CinIndexPage, CinViewPage } from "../pages";
-import { CinRouterBuilderPages, RouterBuilderItem } from "./CinRouterTypes";
-import CinNotFoundPage from "../pages/CinNotFoundPage";
+import { isCinRouterGroup } from "./utils";
+import { RouteObject } from "react-router";
+import { ComponentType } from "react";
 
-interface Options {
+type RouteWithMeta = RouteObject & {
+  name: string;
+  label?: string;
+  icon?: string;
+};
+
+export function CinRouterBuilder(options: {
   routesItem: RouterBuilderItem[];
-  pages?: CinRouterBuilderPages;
-}
+  parentModel?: CinModel | typeof isFunction;
+  basePath?: string;
+}): RouteWithMeta[] {
+  return options.routesItem.flatMap(
+    (item: RouterBuilderItem): RouteWithMeta[] => {
+      if (isCinModel(item) || isFunction(item)) {
+        const isItemFunctionType = isFunction(item) ? true : false;
 
-export function CinRouterBuilder(options: Options): RouteObject[] {
-  const { routesItem, pages = {} } = options;
+        const {
+          modelName,
+          customComponent,
+          path: modelPath,
+          icon: modelIcon,
+          children,
+          viewPageOptions,
+        } = getCinMetaData(
+          isFunction(item) ? (item as () => CinModel)() : item
+        );
 
-  const IndexPage = pages.IndexPage ?? CinIndexPage;
-  const ViewPage = pages.ViewPage ?? CinViewPage;
-  const NotFoundPage = pages.NotFoundPage ?? CinNotFoundPage;
+        let name = _.camelCase(modelName);
+        if (options.parentModel) {
+          const { modelName: parentModelName } = getCinMetaData(
+            options.parentModel
+          );
 
-  const routes = routesItem.flatMap((item): RouteObject[] => {
-    if (isRouteObject(item)) {
-      return [item];
-    }
+          name += parentModelName;
+        }
+        const path = (options.basePath ?? "") + modelPath.toLocaleLowerCase()!;
 
-    if (isCinRouterGroup(item)) {
-      return [
-        {
-          path: item.path,
-          children: CinRouterBuilder({
-            routesItem: item.children,
-            pages,
-          }),
-        },
-      ];
-    }
+        const label = name;
+        const icon = modelIcon ?? "";
 
-    if (isCinModelLike(item)) {
-      const model = resolveModel(item);
-      const meta = getCinMetaData(model);
-      const name = _.camelCase(meta.modelName);
+        const props = {
+          parentModel: options.parentModel,
+          model: isItemFunctionType ? (item as () => CinModel)() : item,
+        };
 
-      const route: RouteObject = {
-        path: meta.path.toLowerCase(),
-        element: createElement(IndexPage, { model }),
-      };
+        const indexPageComponent = customComponent?.component ?? CinIndexPage;
 
-      if (meta.viewPageOptions?.enable) {
-        route.children = [
+        const indexPageProps = {
+          ...(customComponent?.props ?? []),
+          ...props,
+        };
+        const indexRoute = {
+          path,
+          name,
+          label,
+          icon,
+          component: indexPageComponent,
+          props: indexPageProps,
+        };
+
+        if (viewPageOptions.enable) {
+          const viewPageComponent =
+            viewPageOptions?.customComponent?.component ?? CinViewPage;
+
+          // const viewPageProps = {
+          //   ...viewPageOptions?.customComponent?.props,
+          //   ...props,
+          // };
+
+          return [
+            indexRoute,
+            { 
+              path: `${path}/:${name}id`,
+              name: `${name}-id`,
+              label,
+              Component: viewPageComponent as ComponentType,
+              // props: viewPageProps,
+            },
+            ...(children
+              ? CinRouterBuilder({
+                  routesItem: children,
+                  parentModel: isItemFunctionType
+                    ? (item as () => CinModel)()
+                    : item,
+                  basePath: `${path}/:${name}id/`,
+                })
+              : []),
+          ];
+        } else {
+          return [indexRoute];
+        }
+      } else if (isCinRouterGroup(item)) {
+        return [
           {
-            index: true,
-            element: createElement(IndexPage, { model }),
-          },
-          {
-            path: `:${name}id`,
-            element: createElement(ViewPage, { model }),
+            path: `${options.basePath}${(item as CinRouterGroup)?.path}`,
+            name: (item as CinRouterGroup)?.label,
+            label: (item as CinRouterGroup)?.label,
+            children: CinRouterBuilder({
+              routesItem: (item as CinRouterGroup).children,
+              // parentModel: item,
+              basePath: "",
+            }),
           },
         ];
+      } else {
+        return [item];
       }
-
-      return [route];
     }
-
-    return [];
-  });
-
-  routes.push({
-    path: "*",
-    element: createElement(NotFoundPage),
-  });
-
-  return routes;
+  );
 }

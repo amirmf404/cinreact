@@ -1,9 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import { UserModel } from "./models/UserModel";
 import { CinRouterBuilder } from "cinreact";
-import testCom from "./components/test";
-import PageNotFound from "./components/PageNotFound";
-import App from "./App";
 
 function routerBuilder() {
   const applicationRoutes = [
@@ -16,6 +13,7 @@ function routerBuilder() {
   const routes = createBrowserRouter(
     CinRouterBuilder({
       routesItem: applicationRoutes,
+      basePath: "/",
     })
   );
 

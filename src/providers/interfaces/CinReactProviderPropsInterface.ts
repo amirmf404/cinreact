@@ -12,6 +12,6 @@ export interface CinReactProviderPropsInterface {
     en?: Record<string, string>;
   };
 
-  pageLayout?: React.ComponentType<Component>;
+  pageLayout?: React.ComponentType;
   fileDataProvider?: ReactNode;
 }

@@ -3,6 +3,7 @@ import type { CinModel } from "cints-core";
 import type { ComponentType } from "react";
 
 export interface CinRouterGroup {
+  label: string;
   path: string;
   children: RouterBuilderItem[];
 }
